@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         Frog frog = new Frog();
-        List<FrogCommands> commands = new ArrayList<>();
+        List<FrogCommand> commands = new ArrayList<>();
         int curCommand = -1;
         while (true) {
             //считываем ввод и конструируем комманду, если
@@ -32,7 +32,7 @@ public class Main {
                 /*пользователь хочет повторить действие*/
             } else if (command == '>') {
                 if (curCommand == commands.size() - 1) {
-                    System.out.println("Нечего отменять!");
+                    System.out.println("Нечего повторять!");
                 } else {
                     curCommand++;
                     commands.get(curCommand).doIt();
@@ -47,7 +47,7 @@ public class Main {
                 if (curCommand != commands.size() - 1) {
                     //удаляем все команды которые были отменены
                 }
-                FrogCommands cmd = FrogCommands.jumpRightCommand(frog, stepsCount);
+                FrogCommand cmd = FrogCommands.jumpRightCommand(frog, stepsCount);
                 curCommand++;
                 commands.add(cmd);
                 cmd.doIt();
@@ -58,7 +58,7 @@ public class Main {
                 if (curCommand != commands.size() - 1) {
                     //удаляем все команды которые были отменены
                 }
-                FrogCommands cmd = FrogCommands.jumpLeftCommand(frog, stepsCount);
+                FrogCommand cmd = FrogCommands.jumpLeftCommand(frog, stepsCount);
                 curCommand++;
                 commands.add(cmd);
                 cmd.doIt();

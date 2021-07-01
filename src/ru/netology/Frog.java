@@ -13,7 +13,18 @@ public class Frog {
     public boolean jump(int steps) {
         // сделаем прыжок, если прыжок слишком большой
         // для поля, то не прыгнем и вернём false
-        return (position + steps) < MAX_POSITION;
+        return (getPosition() + steps) < MAX_POSITION;
     }
 
+    public static int getMinPosition() {
+        return MIN_POSITION;
+    }
+
+    public static int getMaxPosition() {
+        return MAX_POSITION;
+    }
+
+    public int getPosition() {
+        return position;
+    }
 }

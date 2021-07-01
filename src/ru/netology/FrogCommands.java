@@ -1,37 +1,54 @@
 package ru.netology;
 
-public class FrogCommands implements FrogCommand {
-    public static FrogCommands jumpRightCommand(Frog frog, int steps) {
+public class FrogCommands {
+    public static FrogCommand jumpRightCommand(Frog frog, int steps) {
         // возвращаете объект команды, у которого
         // если вызвать .do(), то лягушка её выполнит,
         // если вызвать .undo(), то лягушка её отменит
-        if (frog.jump(steps)) {
-            final int i = frog.position + steps;
-            frog.position = i;
-        }
-        return new FrogCommands();
+//        if (frog.jump(steps)) {
+//            frog.position = frog.getPosition() + steps;
+//        }
+        return new FrogCommand() {
+            @Override
+            public boolean doIt() {
+                if (frog.jump(steps)) {
+                    frog.position = frog.getPosition() + steps;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean undo() {
+                if (frog.jump(steps)) {
+                    frog.position = frog.getPosition() - steps;
+                }
+                return false;
+            }
+        };
     }
 
-    public static FrogCommands jumpLeftCommand(Frog frog, int steps) {
+    public static FrogCommand jumpLeftCommand(Frog frog, int steps) {
         // возвращаете объект команды, у которого
         // если вызвать .do(), то лягушка её выполнит,
         // если вызвать .undo(), то лягушка её отменит
-        if (frog.jump(steps)) {
-            final int i = frog.position - steps;
-            frog.position = i;
-        }
-        return new FrogCommands();
+        return new FrogCommand() {
+            @Override
+            public boolean doIt() {
+                if (frog.getPosition() - steps > Frog.MIN_POSITION) {
+                    frog.position = frog.getPosition() - steps;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean undo() {
+                if (frog.jump(steps)) {
+                    frog.position = frog.getPosition() + steps;
+                }
+                return false;
+            }
+        };
     }
 
-
-    @Override
-    public boolean doIt() {
-        return true;
-    }
-
-    @Override
-    public boolean undo() {
-        return false;
-    }
 }
 
